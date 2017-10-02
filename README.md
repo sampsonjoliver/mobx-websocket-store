@@ -2,6 +2,14 @@
 
 A simple class to create a mobx store that uses `atoms` to open and close websocket connections based on the observed state of the store.
 
+## Installation
+
+Install with your package manager of choice
+```
+yarn add mobx-websocket-store 
+// or
+npm install mobx-websocket-store 
+```
 ## Motivation
 
 The concept of this was driven by using the firebase realtime database in a frontend react project. A firebase database `reference` is analogous to having a 'socket', and attaching or detaching value listeners to that `reference` is analagous to opening and closing the socket connection.
@@ -74,18 +82,6 @@ class ChatRoom extends Component {
     );
   }
 }
-
 ```
 
 And voila! Thanks to MobX `atom`s and a little MobX secret sauce, when a `ChatRoom` component is rendered, it will subscribe to the messages store, which will cause that store to start listening to that database `reference`. When the `ChatRoom` component stops being rendered, due to the user navigating elsewhere, the database `reference` will stop listening for changes.
-
-## Installation
-
-Install with your package manager of choice
-```
-yarn add mobx-websocket-store 
-// or
-npm install mobx-websocket-store 
-```
-
-That's it, really.
