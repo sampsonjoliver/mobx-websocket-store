@@ -1,0 +1,35 @@
+{
+  "name": "mobx-websocket-store",
+  "version": "0.0.1",
+  "description":
+    "MobX store generator to create stores that use atoms to open and close websocket connections based on the observed state of the store",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/sampsonjoliver/mobx-websocket-store"
+  },
+  "bugs": {
+    "url": "https://github.com/sampsonjoliver/mobx-websocket-store/issues"
+  },
+  "homepage": "https://github.com/sampsonjoliver/mobx-websocket-store#readme",
+  "scripts": {
+    "prepublish": "yarn tsc",
+    "pretest": "yarn build:test",
+    "test": "node ./lib/test/testRunner",
+    "prebuild": "rimraf lib",
+    "prebuild:test": "rimraf lib",
+    "build:test": "tsc -p tsconfig.test.json",
+    "build": "yarn tsc"
+  },
+  "keywords": ["mobx", "websocket", "javascript"],
+  "files": ["lib/"],
+  "author": "Sampson J Oliver",
+  "license": "MIT",
+  "devDependencies": {
+    "@types/node": "^8.0.31",
+    "rimraf": "^2.6.2",
+    "typescript": "^2.5.3"
+  },
+  "dependencies": {
+    "mobx": "^3.3.0"
+  }
+}
