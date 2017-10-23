@@ -85,3 +85,27 @@ class ChatRoom extends Component {
 ```
 
 And voila! Thanks to MobX `atom`s and a little MobX secret sauce, when a `ChatRoom` component is rendered, it will subscribe to the messages store, which will cause that store to start listening to that database `reference`. When the `ChatRoom` component stops being rendered, due to the user navigating elsewhere, the database `reference` will stop listening for changes.
+
+
+### With TypeScript
+Because of the `this` binding, usage with TypeScript can be a little funky. You need to define the `this` context as a parameter on our listener functions, which unfortunately also means you can't use ES6 notation. So it'll look like this:
+
+```
+function refListener(this: MobxWebsocketStore<Foo>, snapshot: firebase.database.DataSnapshot) {
+  this.data = snapshot.val();
+  this.atom.reportChanged();
+};
+
+function startListening(this: MobxWebsocketStore<Foo>) {
+  ref.on("value", refListener.bind(this));  
+}
+
+function stopListening(this: MobxWebsocketStore<Foo>) {
+  ref.off("value", refListener.bind(this));  
+}
+
+const store = new MobxWebsocketStore(
+  startListening,
+  stopListening
+);
+```
