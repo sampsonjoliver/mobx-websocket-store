@@ -91,6 +91,7 @@ And voila! Thanks to MobX `atom`s and a little MobX secret sauce, when a `ChatRo
 Because of the `this` binding, usage with TypeScript can be a little funky. You need to define the `this` context as a parameter on our listener functions, which unfortunately also means you can't use ES6 notation. So it'll look like this:
 
 ```
+const ref = firebase.database().ref("/messages");
 function refListener(this: MobxWebsocketStore<Foo>, snapshot: firebase.database.DataSnapshot) {
   this.data = snapshot.val();
   this.atom.reportChanged();
