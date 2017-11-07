@@ -1,10 +1,10 @@
-import MobxWebsocketStore from "../src/mobxAtomStore";
-import { autorun, reaction } from "mobx";
-import MockSocket from "./MockSocket";
+import MobxWebsocketStore from '../src/mobxAtomStore';
+import { autorun, reaction } from 'mobx';
+import MockSocket from './MockSocket';
 
 const openMockSocket = () => {
-  const socket = new MockSocket("ws://localhost:8080");
-  socket.on("message", message => {
+  const socket = new MockSocket('ws://localhost:8080');
+  socket.on('message', message => {
     store.data = message;
   });
   return socket;
@@ -21,19 +21,19 @@ const createObserver = (id: string, timeout: number = 5000) => {
 
 var socket: MockSocket;
 const store = new MobxWebsocketStore<number>(
-  () => {
-    console.log("Opening websocket");
+  store => {
+    console.log('Opening websocket');
     socket = openMockSocket();
   },
-  () => {
-    console.log("Closing websocket");
+  store => {
+    console.log('Closing websocket');
     socket.close();
   },
   { resetDataOnOpen: false }
 );
 
 setTimeout(() => {
-  createObserver("1", 2000);
+  createObserver('1', 2000);
 
   // Here we fake a server piping data to the socket every second
   const storeUpdateTick = setInterval(event => {
@@ -42,9 +42,9 @@ setTimeout(() => {
 }, 2000);
 
 setTimeout(() => {
-  createObserver("2");
-  createObserver("3");
-  createObserver("4");
+  createObserver('2');
+  createObserver('3');
+  createObserver('4');
 }, 5000);
 
 setTimeout(() => {

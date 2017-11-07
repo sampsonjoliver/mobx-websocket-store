@@ -1,4 +1,4 @@
-import { Atom } from "mobx";
+import { Atom } from 'mobx';
 
 export default class MobxWebsocketStore<T> {
   atom: Atom;
@@ -6,8 +6,8 @@ export default class MobxWebsocketStore<T> {
     resetDataOnOpen: true
   };
   private __data: T | null;
-  private openWebsocket: () => void;
-  private closeWebsocket: () => void;
+  private openWebsocket: (store: MobxWebsocketStore<T>) => void;
+  private closeWebsocket: (store: MobxWebsocketStore<T>) => void;
 
   get data(): T | null {
     this.atom.reportObserved();
@@ -19,10 +19,18 @@ export default class MobxWebsocketStore<T> {
     this.atom.reportChanged();
   }
 
-  constructor(openWebsocket: () => void, closeWebsocket: () => void, opts?: StoreOpts) {
+  constructor(
+    openWebsocket: (store: MobxWebsocketStore<T>) => void,
+    closeWebsocket: (store: MobxWebsocketStore<T>) => void,
+    opts?: StoreOpts
+  ) {
     this.openWebsocket = openWebsocket;
     this.closeWebsocket = closeWebsocket;
-    this.atom = new Atom("MobXWebsocketAtom", this.startListening.bind(this), this.stopListening.bind(this));
+    this.atom = new Atom(
+      'MobXWebsocketAtom',
+      this.startListening.bind(this),
+      this.stopListening.bind(this)
+    );
     if (opts) {
       this.opts = Object.assign({}, this.opts, opts);
     }
@@ -32,11 +40,11 @@ export default class MobxWebsocketStore<T> {
     if (this.opts.resetDataOnOpen) {
       this.__data = null;
     }
-    this.openWebsocket();
+    this.openWebsocket(this);
   }
 
   stopListening() {
-    this.closeWebsocket();
+    this.closeWebsocket(this);
   }
 }
 
