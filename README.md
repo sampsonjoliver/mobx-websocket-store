@@ -26,11 +26,11 @@ import { autorun } from 'mobx';
 
 const socket = ...
 const store = new MobxWebsocketStore(
-  () => {
+  (store) => {
     console.log("Opening websocket");
     socket = openSocket();
   },
-  () => {
+  (store) => {
     console.log("Closing websocket");
     socket.close();
   }
@@ -59,13 +59,13 @@ const refListener = (snapshot: firebase.database.DataSnapshot) => {
 };
 
 const store = new MobxWebsocketStore(
-  () => {
+  (store) => {
     console.log("Opening websocket");
-    ref.on("value", refListener.bind(this));
+    ref.on("value", refListener.bind(store));
   },
-  () => {
+  (store) => {
     console.log("Closing websocket");
-    ref.off("value", refListener.bind(this));
+    ref.off("value", refListener.bind(store));
   }
 );
 ```
