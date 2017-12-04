@@ -3,8 +3,10 @@ import { Atom } from 'mobx';
 export default class MobxWebsocketStore<T> {
   atom: Atom;
   opts: StoreOpts = {
+    id: 'MobxWebsocketStore',
     resetDataOnOpen: true
   };
+
   private __data: T | null;
   private openWebsocket: (store: MobxWebsocketStore<T>) => void;
   private closeWebsocket: (store: MobxWebsocketStore<T>) => void;
@@ -17,6 +19,10 @@ export default class MobxWebsocketStore<T> {
   set data(value: T | null) {
     this.__data = value;
     this.atom.reportChanged();
+  }
+
+  get id(): string {
+    return this.opts.id;
   }
 
   constructor(
@@ -49,5 +55,6 @@ export default class MobxWebsocketStore<T> {
 }
 
 export type StoreOpts = {
-  resetDataOnOpen: boolean;
+  id?: string;
+  resetDataOnOpen?: boolean;
 };
