@@ -19,7 +19,36 @@ A data store should therefore start listening to a `reference` only when one or 
 
 ## Usage
 
-Create a store instance for your websocket using the constructor, and passing in an onOpenWebsocket and onCloseWebsocket callback:
+### Constructor
+
+```
+constructor(
+  openWebsocket: (store: MobxWebsocketStore<T>) => void, 
+  closeWebsocket: (store: MobxWebsocketStore<T>) => void, 
+  opts?: StoreOpts
+);
+```
+
+### Options
+
+```
+{
+    id?: string; // An identifier that can be accessed by 'instance.id'
+    resetDataOnOpen?: boolean; // Whether the store's cached data is reset when the socket is closed and reopened 
+}
+```
+
+### Instance Properties
+```
+const store = new MobxWebsocketStore( ... )
+
+store.id // Gets the id passed in via opts
+const data = store.data // Gets the store data and notifies the store it is being observed
+store.data = ... // Sets the store data and notifies observers of update
+```
+
+### Example
+Create a store instance for your websocket using the constructor, and passing in an onOpenWebsocket and onCloseWebsocket callback and options:
 ```
 import  MobxWebsocketStore from 'mobx-websocket-store';
 import { autorun } from 'mobx';
@@ -33,6 +62,10 @@ const store = new MobxWebsocketStore(
   (store) => {
     console.log("Closing websocket");
     socket.close();
+  },
+  {
+    id: 'MyStore',
+    resetDataOnOpen: false
   }
 );
 
@@ -41,7 +74,7 @@ autorun(() => {
 });
 ```
 
-## Example Usage With React and Firebase
+### Example With React and Firebase
 Here's how you could set up a simple chat room in about 5 minutes, using the very excellent `mobx-react` bindings and the `firebase` package.
 
 First, we'll set up a store that will fetch messages in the chat room when it is observed:
@@ -54,7 +87,7 @@ firebase.initializeApp( ... );
 
 const ref = firebase.database().ref("/messages");
 const refListener = (snapshot: firebase.database.DataSnapshot) => {
-  this.data = snapshot.val();
+  this.data = snapshot.val(); // 'this' will be bound later to the MobxWebsocketStore context
   this.atom.reportChanged();
 };
 
