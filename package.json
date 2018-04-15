@@ -1,6 +1,6 @@
 {
   "name": "mobx-websocket-store",
-  "version": "0.1.2",
+  "version": "0.2.0",
   "description":
     "MobX store generator to create stores that use atoms to open and close websocket connections based on the observed state of the store",
   "repository": {
@@ -31,6 +31,6 @@
     "typescript": "^2.5.3"
   },
   "dependencies": {
-    "mobx": "^3.3.0"
+    "mobx": "^4.1.1"
   }
 }

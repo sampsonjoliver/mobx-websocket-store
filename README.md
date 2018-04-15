@@ -2,20 +2,27 @@
 
 A simple class to create a mobx store that uses `atoms` to open and close websocket connections based on the observed state of the store.
 
+## A note on Mobx 4.x
+
+mobx-websocket-store 0.2.0 and above is compatible with MobX 4.x, however I strongly advise using Mobx 4's `onBecomeObserved` / `onBecomeUnobserved` hooks instead. See [here](https://medium.com/@sampsonjoliver/mobx-4-firebase-websockets-and-you-87fa9682e994) for more info.
+
+If you are using Mobx 3.x, you can use mobx-websocket-store 0.1.2 and below to achieve similar functionality.
+
 ## Installation
 
 Install with your package manager of choice
+
 ```
-yarn add mobx-websocket-store 
+yarn add mobx-websocket-store
 // or
-npm install mobx-websocket-store 
+npm install mobx-websocket-store
 ```
+
 ## Motivation
 
 The concept of this was driven by using the firebase realtime database in a frontend react project. A firebase database `reference` is analogous to having a 'socket', and attaching or detaching value listeners to that `reference` is analagous to opening and closing the socket connection.
 
 A data store should therefore start listening to a `reference` only when one or more views were subscribed to that store. When all views are later removed, the store should stop listening for changes at that `reference`.
-
 
 ## Usage
 

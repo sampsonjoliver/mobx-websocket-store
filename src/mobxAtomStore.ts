@@ -1,7 +1,7 @@
-import { Atom } from 'mobx';
+import { IAtom, createAtom } from "mobx";
 
 export default class MobxWebsocketStore<T> {
-  atom: Atom;
+  atom: IAtom;
   opts: StoreOpts = {
     id: 'MobxWebsocketStore',
     resetDataOnOpen: true
@@ -32,11 +32,7 @@ export default class MobxWebsocketStore<T> {
   ) {
     this.openWebsocket = openWebsocket;
     this.closeWebsocket = closeWebsocket;
-    this.atom = new Atom(
-      'MobXWebsocketAtom',
-      this.startListening.bind(this),
-      this.stopListening.bind(this)
-    );
+    this.atom = createAtom("MobXWebsocketAtom", this.startListening.bind(this), this.stopListening.bind(this));
     if (opts) {
       this.opts = Object.assign({}, this.opts, opts);
     }
