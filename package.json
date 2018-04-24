@@ -20,20 +20,32 @@
     "build:test": "tsc -p tsconfig.demo.json",
     "build": "yarn tsc"
   },
-  "keywords": ["mobx", "websocket", "javascript"],
-  "files": ["lib/", "index.d.ts", "mobxAtomStore.d.ts"],
+  "keywords": [
+    "mobx",
+    "websocket",
+    "javascript"
+  ],
+  "files": [
+    "lib/",
+    "index.d.ts",
+    "mobxAtomStore.d.ts"
+  ],
   "author": "Sampson J Oliver",
   "license": "MIT",
   "devDependencies": {
     "@types/jest": "^22.2.3",
     "@types/node": "^8.0.31",
+    "@types/react": "^16.3.12",
     "jest": "^22.4.3",
     "rimraf": "^2.6.2",
-    "typescript": "^2.5.3"
     "ts-jest": "^22.4.4",
+    "typescript": "^2.8.0-rc"
   },
   "dependencies": {
-    "mobx": "^4.1.1"
+    "firebase": "^4.13.0",
+    "mobx": "^4.1.1",
+    "mobx-react": "^5.0.0",
+    "react": "^16.3.2"
   },
   "jest": {
     "transform": {

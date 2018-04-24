@@ -1,6 +1,7 @@
 {
   "include": ["src/**/*"],
   "compilerOptions": {
+    "jsx": "react",
     "target": "es5",
     "module": "commonjs",
     "moduleResolution": "node",
