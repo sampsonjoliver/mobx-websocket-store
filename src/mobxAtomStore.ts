@@ -1,4 +1,4 @@
-import { IAtom, createAtom } from "mobx";
+import { IAtom, createAtom } from 'mobx';
 
 export default class MobxWebsocketStore<T> {
   atom: IAtom;
@@ -7,7 +7,7 @@ export default class MobxWebsocketStore<T> {
     resetDataOnOpen: true
   };
 
-  private __data: T | null;
+  protected __data: T | null;
   private openWebsocket: (store: MobxWebsocketStore<T>) => void;
   private closeWebsocket: (store: MobxWebsocketStore<T>) => void;
 
@@ -32,7 +32,11 @@ export default class MobxWebsocketStore<T> {
   ) {
     this.openWebsocket = openWebsocket;
     this.closeWebsocket = closeWebsocket;
-    this.atom = createAtom("MobXWebsocketAtom", this.startListening.bind(this), this.stopListening.bind(this));
+    this.atom = createAtom(
+      'MobXWebsocketAtom',
+      this.startListening.bind(this),
+      this.stopListening.bind(this)
+    );
     if (opts) {
       this.opts = Object.assign({}, this.opts, opts);
     }

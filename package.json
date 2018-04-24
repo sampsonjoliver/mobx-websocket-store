@@ -1,8 +1,7 @@
 {
   "name": "mobx-websocket-store",
   "version": "0.2.0",
-  "description":
-    "MobX store generator to create stores that use atoms to open and close websocket connections based on the observed state of the store",
+  "description": "MobX store generator to create stores that use atoms to open and close websocket connections based on the observed state of the store",
   "repository": {
     "type": "git",
     "url": "https://github.com/sampsonjoliver/mobx-websocket-store"
@@ -13,12 +12,12 @@
   "homepage": "https://github.com/sampsonjoliver/mobx-websocket-store#readme",
   "main": "lib/index.js",
   "scripts": {
-    "prepare": "yarn tsc",
-    "pretest": "yarn build:test",
-    "test": "node ./lib/test/testRunner",
+    "test": "jest",
+    "predemo": "yarn build:test",
+    "demo": "node ./lib/demo/testRunner",
     "prebuild": "rimraf lib",
     "prebuild:test": "rimraf lib",
-    "build:test": "tsc -p tsconfig.test.json",
+    "build:test": "tsc -p tsconfig.demo.json",
     "build": "yarn tsc"
   },
   "keywords": ["mobx", "websocket", "javascript"],
@@ -26,11 +25,28 @@
   "author": "Sampson J Oliver",
   "license": "MIT",
   "devDependencies": {
+    "@types/jest": "^22.2.3",
     "@types/node": "^8.0.31",
+    "jest": "^22.4.3",
     "rimraf": "^2.6.2",
     "typescript": "^2.5.3"
+    "ts-jest": "^22.4.4",
   },
   "dependencies": {
     "mobx": "^4.1.1"
+  },
+  "jest": {
+    "transform": {
+      "^.+\\.tsx?$": "ts-jest"
+    },
+    "testRegex": "(/__tests__/.*|(\\.|/)(test|spec))\\.(jsx?|tsx?)$",
+    "moduleFileExtensions": [
+      "ts",
+      "tsx",
+      "js",
+      "jsx",
+      "json",
+      "node"
+    ]
   }
 }
